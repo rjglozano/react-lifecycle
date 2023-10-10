@@ -1,41 +1,24 @@
 import { useState, useEffect} from 'react'
 import './App.css'
 import Post from './components/Post'
+import useFetch from './hooks/useFetch'
 
 function App() {
   const [number, setNumber] = useState(1)
-  const [post, setPost] = useState("")
+  const {data} = useFetch('https://jsonplaceholder.typicode.com/posts/', number)
 
-  const fetchPost = async (id) =>{
-    try{
-      const response = await fetch("https://jsonplaceholder.typicode.com/posts/" + id)
-      const data = await response.json()
-      setPost(data)
-    } catch (error){
-      console.log(error)
-    } finally{
-      console.log("Done")
-    }
-    
-  }
 
   useEffect(()=>{
-    fetchPost(number)
-  }, [number])
+    console.log('mounter')
 
-
-  
-  // useEffect(()=>{
-  //   fetch('https://jsonplaceholder.typicode.com/posts/' + number)
-  //   .then((response) => response.json())
-  //   .then((data)=> setPost(data))
-  //    .catch((error) => console.log(error))
-  // }, [number])
-
+    return()=>{
+      console.log('Remove')
+    }
+  }, [])
 
   return (
       <div className='flex flex-col justify-center items-center align-center h-screen bg-gray w-screen'>
-        <Post title={post.title} body={post.body} />
+        {data && <Post title={data.title} body={data.body} />}
         {number}
         <div className='flex item-center gap-3 mt-3'> 
           {Array.from({length: 5}).map((value, index)=>{

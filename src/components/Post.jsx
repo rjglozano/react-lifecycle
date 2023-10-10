@@ -1,10 +1,10 @@
 import React from 'react'
 
-const Post = () => {
+const Post = ({title, body}) => {
   return (
-    <div className='text-center p-3 bg-white border border-gray-400/3 w-64'>
-        <t4>Title</t4>
-        <p>Body</p>
+    <div className='text-center p-3 border border-gray-400/3 w-64 bg-red-400'>
+        <t4 className="text-white text-3xl">{title}</t4>
+        <p className="text-xs">{body}</p>
     </div>
   )
 }
